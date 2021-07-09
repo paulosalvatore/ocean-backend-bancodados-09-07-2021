@@ -71,14 +71,14 @@ const { MongoClient, ObjectId } = require("mongodb");
     });
 
     // [PUT] - Update
-    app.put("/filmes/:id", (req, res) => {
+    app.put("/filmes/:id", async (req, res) => {
         const id = req.params.id;
 
-        const item = req.body.nome;
+        const item = req.body;
 
-        lista[id - 1] = item;
+        await filmes.updateOne({ _id: ObjectId(id) }, { $set: item });
 
-        res.send("Item editado com sucesso.");
+        res.send(item);
     });
 
     // [DELETE] - Delete
