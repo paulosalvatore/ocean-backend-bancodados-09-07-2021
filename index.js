@@ -82,10 +82,10 @@ const { MongoClient, ObjectId } = require("mongodb");
     });
 
     // [DELETE] - Delete
-    app.delete("/filmes/:id", (req, res) => {
+    app.delete("/filmes/:id", async (req, res) => {
         const id = req.params.id;
 
-        delete lista[id - 1];
+        await filmes.deleteOne({ _id: ObjectId(id) });
 
         res.send("Item removido com sucesso.");
     });
