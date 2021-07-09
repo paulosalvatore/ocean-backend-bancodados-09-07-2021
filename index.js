@@ -1,4 +1,11 @@
 const express = require("express");
+const { MongoClient, ObjectId } = require("mongodb");
+
+const url = "";
+const dbName = "";
+
+console.info("Conectando ao banco de dados...");
+
 const app = express();
 
 // Informo ao Express que todo corpo

@@ -159,4 +159,27 @@
       }
       ```
 
-      
+  ## MongoDB Compass
+
+  1. No MongoDB Compass, clique em `Connect`
+
+  2. Depois, clique em `Create database`
+
+  3. Preenche o nome do banco e o nome da collection e clique em `Create Database`
+
+  4. Abra o banco de dados que acabou de ser criado
+
+  5. Abra a collection recém criada
+
+  6. Clique em `Add data` e depois em `Insert document`
+
+  7. Substitua todo o conteúdo pelo seguinte documento:
+
+     - ```json
+       {
+         "nome": "Senhor dos Anéis: As Duas Torres",
+         "imagem_url": "https://..."  
+       }
+       ```
+
+  8. Clique em `Insert`
