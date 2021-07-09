@@ -53,10 +53,10 @@ const { MongoClient, ObjectId } = require("mongodb");
     });
 
     // [GET] - Read Single (ou Read by ID/Index)
-    app.get("/filmes/:id", (req, res) => {
+    app.get("/filmes/:id", async (req, res) => {
         const id = req.params.id;
 
-        const item = lista[id - 1];
+        const item = await filmes.findOne({ _id: ObjectId(id) });
 
         res.send(item);
     });
