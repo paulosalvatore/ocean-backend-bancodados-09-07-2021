@@ -132,7 +132,7 @@
 
   - Como é um documento?
 
-    - ```json
+    - ```js
       {
           "_id": ObjectId("507f191e810c19729de860ea"),
           "nome": "Senhor dos Anéis: As Duas Torres",
@@ -149,7 +149,7 @@
 
   - Os documentos **podem** possuir estruturas diferentes
 
-    - ```json
+    - ```js
       {
           "id": 1,
           "nome": "Senhor dos Anéis: As Duas Torres",
