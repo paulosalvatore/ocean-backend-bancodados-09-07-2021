@@ -62,12 +62,12 @@ const { MongoClient, ObjectId } = require("mongodb");
     });
 
     // [POST] - Create
-    app.post("/filmes", (req, res) => {
-        const item = req.body.nome;
+    app.post("/filmes", async (req, res) => {
+        const item = req.body;
 
-        lista.push(item);
+        await filmes.insertOne(item);
 
-        res.send("Item criado com sucesso.");
+        res.send(item);
     });
 
     // [PUT] - Update
