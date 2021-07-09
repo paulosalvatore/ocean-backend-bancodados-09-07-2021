@@ -1,22 +1,29 @@
 const express = require("express");
 const { MongoClient, ObjectId } = require("mongodb");
 
-const url = "";
-const dbName = "";
+(async () => {
+    const url = "mongodb://localhost:27017";
+    const dbName = "ocean_bancodados_09_07_2021";
 
-console.info("Conectando ao banco de dados...");
+    console.info("Conectando ao banco de dados...");
 
-const app = express();
+    const client = await MongoClient.connect(url, { useUnifiedTopology: true });
 
-// Informo ao Express que todo corpo
-// de requisição será estruturado em JSON
-app.use(express.json());
+    console.info("MongoDB conectado com sucesso!");
 
-app.get("/hello", function (req, res) {
-    res.send("Hello World");
-});
+    const db = client.db(dbName);
 
-/*
+    const app = express();
+
+    // Informo ao Express que todo corpo
+    // de requisição será estruturado em JSON
+    app.use(express.json());
+
+    app.get("/hello", function (req, res) {
+        res.send("Hello World");
+    });
+
+    /*
 Lista de Endpoints CRUD
 Create, Read (Single & All), Update, Delete
 Criar, Ler (Individual & Tudo), Atualizar, Remover
@@ -31,59 +38,60 @@ Quando uma aplicação segue os padrões REST, ela é chamada de RESTful
 [DELETE] -> Delete
 */
 
-// Escolha um tema: Filmes, Séries, Jogos, etc
+    // Escolha um tema: Filmes, Séries, Jogos, etc
 
-const lista = ["Senhor dos Anéis", "Harry Potter"];
-//              0                   1
+    const lista = ["Senhor dos Anéis", "Harry Potter"];
+    //              0                   1
 
-// [GET] - Read All
-app.get("/filmes", (req, res) => {
-    res.send(lista.filter(Boolean));
-});
+    // [GET] - Read All
+    app.get("/filmes", (req, res) => {
+        res.send(lista.filter(Boolean));
+    });
 
-// [GET] - Read Single (ou Read by ID/Index)
-app.get("/filmes/:id", (req, res) => {
-    const id = req.params.id;
+    // [GET] - Read Single (ou Read by ID/Index)
+    app.get("/filmes/:id", (req, res) => {
+        const id = req.params.id;
 
-    const item = lista[id - 1];
+        const item = lista[id - 1];
 
-    res.send(item);
-});
+        res.send(item);
+    });
 
-// [POST] - Create
-app.post("/filmes", (req, res) => {
-    const item = req.body.nome;
+    // [POST] - Create
+    app.post("/filmes", (req, res) => {
+        const item = req.body.nome;
 
-    lista.push(item);
+        lista.push(item);
 
-    res.send("Item criado com sucesso.");
-});
+        res.send("Item criado com sucesso.");
+    });
 
-// [PUT] - Update
-app.put("/filmes/:id", (req, res) => {
-    const id = req.params.id;
+    // [PUT] - Update
+    app.put("/filmes/:id", (req, res) => {
+        const id = req.params.id;
 
-    const item = req.body.nome;
+        const item = req.body.nome;
 
-    lista[id - 1] = item;
+        lista[id - 1] = item;
 
-    res.send("Item editado com sucesso.");
-});
+        res.send("Item editado com sucesso.");
+    });
 
-// [DELETE] - Delete
-app.delete("/filmes/:id", (req, res) => {
-    const id = req.params.id;
+    // [DELETE] - Delete
+    app.delete("/filmes/:id", (req, res) => {
+        const id = req.params.id;
 
-    delete lista[id - 1];
+        delete lista[id - 1];
 
-    res.send("Item removido com sucesso.");
-});
+        res.send("Item removido com sucesso.");
+    });
 
-app.listen(3000);
+    app.listen(3000);
 
-// Resumo dos endpoints:
-// [POST] - /filmes -> Adicionar um elemento
-// [GET] - /filmes/:id -> Ler um único elemento
-// [GET] - /filmes -> Let todos os elementos
-// [PUT] - /filmes/:id -> Alterar um único elemento
-// [DELETE] - /filmes/:id -> Apagar um único elemento
+    // Resumo dos endpoints:
+    // [POST] - /filmes -> Adicionar um elemento
+    // [GET] - /filmes/:id -> Ler um único elemento
+    // [GET] - /filmes -> Let todos os elementos
+    // [PUT] - /filmes/:id -> Alterar um único elemento
+    // [DELETE] - /filmes/:id -> Apagar um único elemento
+})();
